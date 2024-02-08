@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_task
+    username: root
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    baseline-on-migrate: false
+    user: root
+    password: 123456
+    url: jdbc:postgresql://localhost:5432/db_task
+    locations: classpath:db.migration

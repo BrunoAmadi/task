@@ -9,8 +9,8 @@ public interface TaskInterface {
     String title();
     String description();
     TaskStatus status();
-    Instant createdAt();
-    Instant updatedAt();
+
+    boolean isDone();
 
     void updateTitle(String title);
     void updateDescription(String description);

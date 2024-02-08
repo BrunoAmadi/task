@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS TB_TASK(
+    id_task UUID NOT NULL PRIMARY KEY,
+    nm_title VARCHAR(255) NOT NULL,
+    ds_description VARCHAR(255) NOT NULL,
+    st_status VARCHAR(255) NOT NULL,
+    dt_created TIMESTAMP NOT NULL,
+    dt_updated TIMESTAMP NOT NULL
+)
+

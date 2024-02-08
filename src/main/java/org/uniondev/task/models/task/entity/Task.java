@@ -1,7 +1,7 @@
 package org.uniondev.task.models.task.entity;
 
 import org.uniondev.task.models.task.enums.TaskStatus;
-import org.uniondev.task.models.task.exceptions.TaskIllegalArgumentException;
+import org.uniondev.task.models.task.entity.exceptions.TaskIllegalArgumentException;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -11,8 +11,7 @@ public class Task implements TaskInterface{
     private String title;
     private  String description;
     private TaskStatus status;
-    private final Instant createdAt;
-    private Instant updatedAt;
+    private boolean isDone;
 
 
     private Task(String title, String description) {
@@ -20,8 +19,7 @@ public class Task implements TaskInterface{
         this.title = title;
         this.description = description;
         this.status = TaskStatus.TODO;
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
+        this.isDone = false;
         this.validate();
     }
 
@@ -45,29 +43,28 @@ public class Task implements TaskInterface{
         return this.status;
     }
 
-    public Instant createdAt() {
-        return this.createdAt;
-    }
 
-    public Instant updatedAt() {
-        return this.updatedAt;
+    public boolean isDone() {
+        return this.isDone;
     }
 
     public void updateStatus(TaskStatus status) {
         this.status = status;
-        this.updatedAt = Instant.now();
+
+        if(status == TaskStatus.DONE){
+            this.isDone = true;
+        }
+
     }
 
     public void updateTitle(String title) {
         this.title = title;
-        this.updatedAt = Instant.now();
         this.validateTitle();
     }
 
 
     public void updateDescription(String description) {
         this.description = description;
-        this.updatedAt = Instant.now();
         this.validateDescription();
     }
 
