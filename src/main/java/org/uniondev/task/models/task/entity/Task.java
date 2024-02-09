@@ -2,16 +2,17 @@ package org.uniondev.task.models.task.entity;
 
 import org.uniondev.task.models.task.enums.TaskStatus;
 import org.uniondev.task.models.task.entity.exceptions.TaskIllegalArgumentException;
-
-import java.time.Instant;
 import java.util.UUID;
 
-public class Task implements TaskInterface{
-    private final UUID id;
+public class Task implements TaskInterface {
+    private UUID id;
     private String title;
-    private  String description;
+    private String description;
     private TaskStatus status;
-    private boolean isDone;
+
+
+    public Task() {
+    }
 
 
     private Task(String title, String description) {
@@ -19,13 +20,17 @@ public class Task implements TaskInterface{
         this.title = title;
         this.description = description;
         this.status = TaskStatus.TODO;
-        this.isDone = false;
         this.validate();
     }
 
-    public static Task create(String title, String description) {
-        return new Task(title, description);
+    public Task(UUID id, String title, String description, TaskStatus status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.validate();
     }
+
 
     public UUID id() {
         return this.id;
@@ -44,16 +49,15 @@ public class Task implements TaskInterface{
     }
 
 
-    public boolean isDone() {
-        return this.isDone;
+    public void updateAll(String title, String description, String status) {
+        this.updateTitle(title);
+        this.updateDescription(description);
+        this.updateStatus(status);
     }
 
-    public void updateStatus(TaskStatus status) {
-        this.status = status;
 
-        if(status == TaskStatus.DONE){
-            this.isDone = true;
-        }
+    public void updateStatus(String status) {
+        this.status = TaskStatus.valueOf(status);
 
     }
 
@@ -68,27 +72,28 @@ public class Task implements TaskInterface{
         this.validateDescription();
     }
 
+    public static Task create(String title, String description) throws TaskIllegalArgumentException {
+        return new Task(title, description);
+    }
 
 
-    private void validate(){
+    private void validate() {
         this.validateTitle();
         this.validateDescription();
     }
 
 
-    private void validateTitle(){
-        if(this.title.length() < 3 || this.title.length() > 50){
+    private void validateTitle() {
+        if (this.title.length() < 3 || this.title.length() > 50) {
             throw new TaskIllegalArgumentException("Title must be between 3 and 50 characters");
         }
     }
 
-    private void validateDescription(){
-        if(this.description.length() < 3 || this.description.length() > 250){
+    private void validateDescription() {
+        if (this.description.length() < 3 || this.description.length() > 250) {
             throw new TaskIllegalArgumentException("Description must be between 3 and 250 characters");
         }
     }
-
-
 
 
 }

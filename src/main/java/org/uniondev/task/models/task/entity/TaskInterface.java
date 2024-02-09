@@ -10,10 +10,8 @@ public interface TaskInterface {
     String description();
     TaskStatus status();
 
-    boolean isDone();
-
     void updateTitle(String title);
     void updateDescription(String description);
-    void updateStatus(TaskStatus status);
+    void updateStatus(String status);
 
 }
