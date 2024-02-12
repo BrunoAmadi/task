@@ -13,7 +13,6 @@ import java.util.UUID;
 public class TaskEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_task")
     private UUID id;
 

@@ -1,5 +1,12 @@
 package org.uniondev.task.controllers.task.dto;
 
-public record TaskDtoCreate(String title, String description) {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+public record TaskDtoCreate(
+        @Schema(name = "title", example = "Task Title")
+        String title,
+        @Schema(name = "description", example = "Task description")
+        String description) {
 
 }

@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Task API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /api/v1/tasks:
+    post:
+      description: Endpoint for create a new task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_api_v1_tasks_post_request'
+        required: true
+      responses:
+        "200": {}
+        "400":
+          description: Title must be between 3 and 50 characters
+      summary: Create a new task
+      x-content-type: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    _api_v1_tasks_post_request:
+      properties:
+        title:
+          example: My title task
+          type: string
+        description:
+          example: Description task
+          type: string
+      required:
+      - description
+      - title
+      type: object
+
