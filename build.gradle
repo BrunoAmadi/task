@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
 }
 
 group = 'org.uniondev'
@@ -13,6 +14,7 @@ java {
 
 repositories {
     mavenCentral()
+
 }
 
 dependencies {
@@ -22,6 +24,23 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()

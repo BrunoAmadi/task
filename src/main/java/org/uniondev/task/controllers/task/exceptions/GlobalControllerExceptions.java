@@ -14,24 +14,22 @@ import java.time.Instant;
 public class GlobalControllerExceptions {
 
     @ExceptionHandler(TaskNotFoundException.class)
-    public ResponseEntity<ResponseError> handleTaskNotFoundException(TaskNotFoundException e, WebRequest request) {
+    public ResponseEntity<ResponseError> handleTaskNotFoundException(TaskNotFoundException e) {
         ResponseError error = new ResponseError(
                 Instant.now(),
                 HttpStatus.NOT_FOUND.value(),
-                e.getMessage(),
-                request.getContextPath()
+                e.getMessage()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
 
     @ExceptionHandler(TaskInvalidArgumentException.class)
-    public ResponseEntity<ResponseError> handleTaskInvalidArgumentException(TaskInvalidArgumentException e, WebRequest request) {
+    public ResponseEntity<ResponseError> handleTaskInvalidArgumentException(TaskInvalidArgumentException e) {
         ResponseError error = new ResponseError(
                 Instant.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                e.getMessage(),
-                request.getContextPath()
+                e.getMessage()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

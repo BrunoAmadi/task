@@ -41,28 +41,34 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public void updateTask(TaskDtoUpdate taskDtoUpdate) {
+    public TaskDtoResponse updateTask(TaskDtoUpdate taskDtoUpdate) {
         var id = UUID.fromString(taskDtoUpdate.id());
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found " + id));
 
-        var task = TaskEntity.toDomain(entity);
-        task.updateAll(
-                taskDtoUpdate.title(),
-                taskDtoUpdate.description(),
-                taskDtoUpdate.status()
-        );
+        try {
+            var task = TaskEntity.toDomain(entity);
+            task.updateAll(
+                    taskDtoUpdate.title(),
+                    taskDtoUpdate.description(),
+                    taskDtoUpdate.status()
+            );
 
-        var taskEntity = TaskEntity.from(task);
+            var taskEntity = TaskEntity.from(task);
 
-        var updated = repository.updateTask(
-                taskEntity.id(),
-                taskEntity.title(),
-                taskEntity.description(),
-                taskEntity.status()
-        );
+           repository.updateTask(
+                    taskEntity.id(),
+                    taskEntity.title(),
+                    taskEntity.description(),
+                    taskEntity.status()
+            );
 
+            return TaskDtoResponse.from(taskEntity);
+
+        } catch (TaskIllegalArgumentException e) {
+            throw new TaskInvalidArgumentException(e.getMessage());
+        }
 
     }
 

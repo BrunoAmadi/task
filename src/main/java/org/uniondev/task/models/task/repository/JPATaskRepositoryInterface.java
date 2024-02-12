@@ -23,7 +23,7 @@ public interface JPATaskRepositoryInterface extends JpaRepository<TaskEntity, UU
                     dt_updated = current_timestamp
                     WHERE id_task = :id
             """, nativeQuery = true)
-    int updateTask(UUID id, String title, String description, String status);
+    void updateTask(UUID id, String title, String description, String status);
 
 
     @Query(value = """

@@ -2,6 +2,8 @@ package org.uniondev.task.models.task.entity;
 
 import org.uniondev.task.models.task.enums.TaskStatus;
 import org.uniondev.task.models.task.entity.exceptions.TaskIllegalArgumentException;
+
+import java.util.Arrays;
 import java.util.UUID;
 
 public class Task implements TaskInterface {
@@ -9,10 +11,6 @@ public class Task implements TaskInterface {
     private String title;
     private String description;
     private TaskStatus status;
-
-
-    public Task() {
-    }
 
 
     private Task(String title, String description) {
@@ -57,8 +55,8 @@ public class Task implements TaskInterface {
 
 
     public void updateStatus(String status) {
+        validateStatus(status);
         this.status = TaskStatus.valueOf(status);
-
     }
 
     public void updateTitle(String title) {
@@ -95,5 +93,11 @@ public class Task implements TaskInterface {
         }
     }
 
+    private void validateStatus(String status) {
+        var isValid = Arrays.stream(TaskStatus.values()).anyMatch(taskStatus -> taskStatus.name().equals(status));
+        if (!isValid) {
+            throw new TaskIllegalArgumentException("Please insert 'TODO', 'DONE' or 'DOING'");
+        }
+    }
 
 }

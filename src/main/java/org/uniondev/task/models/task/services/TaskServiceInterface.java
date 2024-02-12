@@ -9,7 +9,7 @@ import java.util.List;
 public interface TaskServiceInterface {
 
     TaskDtoResponse createTask(TaskDtoCreate taskDtoCreate);
-    void updateTask(TaskDtoUpdate taskDtoUpdate);
+    TaskDtoResponse updateTask(TaskDtoUpdate taskDtoUpdate);
 
     TaskDtoResponse findTaskById(String id);
 
